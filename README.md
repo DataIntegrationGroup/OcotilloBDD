@@ -14,3 +14,29 @@ The goal of this repository is to:
 - Support automated testing with tools like [Behave](https://behave.readthedocs.io/en/stable/) or [Cucumber](https://cucumber.io/).
 
 ---
+
+## Structure
+
+```
+bdd/
+ ├── features/
+ │   ├── backend/
+ │   │   ├── api.feature
+ │   │   └── auth.feature
+ │   ├── frontend/
+ │   │   ├── login.feature
+ │   │   └── cart.feature
+ │   └── shared/
+ │       └── user_management.feature
+ ├── README.md
+ └── versioning/
+     └── (tags or release notes here)
+```
+
+| Folder | Purpose |
+|---------|----------|
+| `backend/` | Feature files for API, data, or service logic. |
+| `frontend/` | UI/UX behavior, end-user flows, and interactions. |
+| `shared/` | Cross-cutting scenarios affecting both layers (auth, session, etc.). |
+
+---
