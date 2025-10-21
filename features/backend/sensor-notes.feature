@@ -23,3 +23,10 @@ Feature: Retrieve sensor notes
     And the system should return a response in JSON format
     And the response should include notes
     And the notes should be a non-empty string
+
+  @negative @sad_path
+  Scenario: Retrieve sensor notes for a non-existing well
+    When the user retrieves the sensor for well "WL-9999"
+    Then the system should return a 404 status code
+    And the system should return a response in JSON format
+    And the response should include an error message indicating the well was not found

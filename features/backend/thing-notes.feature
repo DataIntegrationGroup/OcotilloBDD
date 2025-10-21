@@ -2,11 +2,11 @@
 @backend @BDMS-199
 Feature: Retrieve well notes by well name
   As a user
-    I want to retrieve well notes for a given well name
-    So that I can view important information about the well's location
-    Background:
-      Given a functioning api
-      And the system has valid well and location data in the database
+  I want to retrieve well notes for a given well name
+  So that I can view important information about the well's location
+  Background:
+    Given a functioning api
+    And the system has valid well and location data in the database
 
   @positive @happy_path
   Scenario: Retrieve location notes for an existing well
@@ -15,3 +15,10 @@ Feature: Retrieve well notes by well name
     And the system should return a response in JSON format
     And the response should include notes
     And the notes should be a non-empty string
+
+  @negative @sad_path
+  Scenario: Retrieve well notes for a non-existing well
+    When the user retrieves the well "WL-9999"
+    Then the system should return a 404 status code
+    And the system should return a response in JSON format
+    And the response should include an error message indicating the well was not found
