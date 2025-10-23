@@ -9,7 +9,7 @@ Feature: Retrieve well notes by well name
     And the system has valid well and location data in the database
 
   @positive @happy_path
-  Scenario: Retrieve location notes for an existing well
+  Scenario: Retrieve well notes for an existing well
     When the user retrieves the well 1
     Then the system should return a 200 status code
     And the system should return a response in JSON format
