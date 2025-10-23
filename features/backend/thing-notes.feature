@@ -10,7 +10,7 @@ Feature: Retrieve well notes by well name
 
   @positive @happy_path
   Scenario: Retrieve location notes for an existing well
-    When the user retrieves the well "WL-0001"
+    When the user retrieves the well 1
     Then the system should return a 200 status code
     And the system should return a response in JSON format
     And the response should include notes
@@ -18,7 +18,7 @@ Feature: Retrieve well notes by well name
 
   @negative @sad_path
   Scenario: Retrieve well notes for a non-existing well
-    When the user retrieves the well "WL-9999"
+    When the user retrieves the well 9999
     Then the system should return a 404 status code
     And the system should return a response in JSON format
     And the response should include an error message indicating the well was not found
