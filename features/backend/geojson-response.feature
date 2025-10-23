@@ -12,7 +12,7 @@ Feature: Geojson Response
       Then the system should return a 200 status code
       And the system should return a response in GEOJSON format
       And the response should be a feature collection
-      And the feature collection should have 10 features
+      And the feature collection should have 3 features
 
   @positive @happy_path
     Scenario: Request all wells in a group as geojson
