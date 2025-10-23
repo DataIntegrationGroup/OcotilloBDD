@@ -13,7 +13,7 @@ Feature: Retrieve well notes by well name
     When the user retrieves the well 1
     Then the system should return a 200 status code
     And the system should return a response in JSON format
-    And the response should include notes
+    And the response should include well_construction_notes
     And the notes should be a non-empty string
 
   @negative @sad_path
