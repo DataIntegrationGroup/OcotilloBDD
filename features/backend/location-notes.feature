@@ -1,5 +1,5 @@
 # Created by jakeross at 10/21/25
-@backend @BDMS-199
+@backend @BDMS-199 @production
 Feature: Retrieve location notes by well name
   As a user
   I want to retrieve location notes for a given well name
