@@ -29,7 +29,7 @@ Feature: Retrieve sensor notes
     When the user requests the sensor with ID 9999
     Then the system should return a 404 status code
     And the system should return a response in JSON format
-    And the response should include an error message indicating the well was not found
+    And the response should include an error message indicating the sensor was not found
 
 #  @negative @sad_path
 #  Scenario: Request sensor notes for a non-existing well
