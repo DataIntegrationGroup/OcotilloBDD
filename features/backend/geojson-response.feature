@@ -1,5 +1,5 @@
 # Created by jakeross at 10/22/25
-@backend
+@backend @production
 Feature: Geojson Response
   # Enter feature description here
   Background:
