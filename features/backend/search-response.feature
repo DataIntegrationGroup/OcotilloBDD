@@ -23,7 +23,8 @@ Feature: Unified search API returns grouped results
     Then the system should return a 200 status code
     And the response should include a "Contacts" group
     And each contact result should include:
-      | email | phone | address |
+      | TODO: use correct field name syntax |
+      | id | first_name | last_name | email | phone | address |
 
   @positive @happy_path
   Scenario: Retrieve well results
@@ -31,7 +32,8 @@ Feature: Unified search API returns grouped results
     Then the system should return a 200 status code
     And the response should include a "Wells" group
     And each well result should include:
-      | thing_type | id | well_purpose | well_depth | hole_depth |
+      | TODO: use correct field name syntax |
+      | thing_type | id | name | alternate site name | contact first name | contact last name | contact id | county |
 
   @positive @happy_path
   Scenario: Retrieve spring results
