@@ -6,11 +6,11 @@ Feature: Unified search API returns grouped results
 
   Background:
     Given a functioning api
-    And the system has valid contact, well, and spring in the database
+    And the system has valid contact, well, and spring records in the database
 
   @positive @happy_path
   Scenario: Retrieve mixed search results
-    When the user searches for "BO"
+    When the user searches for "<search_term>"
     Then the system should return a 200 status code
     And the system should return a response in JSON format
     And the response should include results grouped by:
@@ -19,16 +19,16 @@ Feature: Unified search API returns grouped results
 
   @positive @happy_path
   Scenario: Retrieve contact results
-    When the user searches for "John"
+    When the user searches for "<contact_search_term>"
     Then the system should return a 200 status code
     And the response should include a "Contacts" group
     And each contact result should include:
       | TODO: use correct field name syntax |
-      | id | first_name | last_name | email | phone | address |
+      | id | first_name | last_name | email | phone | address | associated_things |
 
   @positive @happy_path
   Scenario: Retrieve well results
-    When the user searches for "NM-1234"
+    When the user searches for "<well_search_term>"
     Then the system should return a 200 status code
     And the response should include a "Wells" group
     And each well result should include:
@@ -37,7 +37,7 @@ Feature: Unified search API returns grouped results
 
   @positive @happy_path
   Scenario: Retrieve spring results
-    When the user searches for "Spring"
+    When the user searches for "<spring_search_term>"
     Then the system should return a 200 status code
     And the response should include a "Springs" group
     And each spring result should include:
