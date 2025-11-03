@@ -5,8 +5,8 @@ Feature: Retrieve additional well information by well name
   So that I have all necessary well data to confidently complete fieldwork
 
   Background:
-    Given Ocotillo is running
-    And I am an authenticated user
+    Given a functioning api
+    And the system has valid well and location data in the database
 
   Scenario: Retrieve additional well information for an existing well
     When I retrieve the well record for a given well

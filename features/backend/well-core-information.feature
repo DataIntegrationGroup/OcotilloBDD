@@ -5,8 +5,8 @@ Feature: Retrieve core well information by well name
   so that I can assess key well characteristics at a glance
 
   Background:
-    Given Ocotillo is running
-    And I am an authenticated user
+    Given a functioning api
+    And the system has valid well and location data in the database
 
   Scenario: Retrieve core well information for an existing well
     When I retrieve the well record for a given well
