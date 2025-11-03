@@ -9,7 +9,7 @@ Feature: Retrieve additional well information by well name
     And the system has valid well and location data in the database
 
   Scenario: Retrieve additional well information for an existing well
-    When I retrieve the well record for a given well
+    When the user retrieves the well by ID via path parameter
 
     # Permissions / Operational OK flags
     And I should see whether repeat measurement permission is granted for the well

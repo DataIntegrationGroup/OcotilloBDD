@@ -9,7 +9,7 @@ Feature: Retrieve core well information by well name
     And the system has valid well and location data in the database
 
   Scenario: Retrieve core well information for an existing well
-    When I retrieve the well record for a given well
+    When the user retrieves the well by ID via path parameter
     Then I should see the well name (point ID) (i.e. NM-1234)
     And I should see the project(s) or group(s) associated with the well
     And I should see the site name(s) for the well (i.e. John Smith House Well)

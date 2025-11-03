@@ -10,7 +10,7 @@ Feature: Retrieve well notes by well name
 
   @positive @happy_path
   Scenario: Retrieve well notes for an existing well
-    When the user retrieves the well 1
+    When the user retrieves the well by ID via path parameter
     Then the system should return a 200 status code
     And the system should return a response in JSON format
     And the response should include location notes (i.e. driving directions and geographic well location notes)
