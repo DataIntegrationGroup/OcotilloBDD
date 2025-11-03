@@ -15,35 +15,35 @@ Feature: Retrieve core well information by well name
     And null values in the response should be represented as JSON null (not placeholder strings)
 
     # Well names and projects
-    And I should see the well name (point ID) (i.e. NM-1234)
-    And I should see the project(s) or group(s) associated with the well
-    And I should see the site name(s) for the well (i.e. John Smith House Well)
+    And the response should include the well name (point ID) (i.e. NM-1234)
+    And the response should include the project(s) or group(s) associated with the well
+    And the response should include the site name(s) for the well (i.e. John Smith House Well)
 
     # Well Purpose and Status and Monitoring Status
-    And I should see the purpose of the well (current use)
-    And I should see the well status of the well as the status of the hole in the ground
-    And I should see the monitoring frequency (new field)
-    And I should see whether the well is currently being monitored with status text if applicable (from previous status field)
+    And the response should include the purpose of the well (current use)
+    And the response should include the well status of the well as the status of the hole in the ground
+    And the response should include the monitoring frequency (new field)
+    And the response should include whether the well is currently being monitored with status text if applicable (from previous status field)
 
     # Data Lifecycle and Public Visibility
     # NEEDS USER RESEARCH - keep both under release_status for now? (previously PublicRelease)
-    And I should see the release status of the well record
+    And the response should include the release status of the well record
 
     # Well Physical Properties
-    And I should see the hole depth in feet
-    And I should see the well depth in feet
-    And I should see the source of the well depth information
+    And the response should include the hole depth in feet
+    And the response should include the well depth in feet
+    And the response should include the source of the well depth information
 
     # Measuring Point Information
-    And I should see the description of the measuring point
-    And I should see the measuring point height
+    And the response should include the description of the measuring point
+    And the response should include the measuring point height
 
     # Location Information
-    And I should see the latitude and longitude in decimal degrees with datum WGS84
-    And I should see the UTM coordinates with datum NAD83
-    And I should see the elevation in feet with vertical datum NAVD88
-    And I should see the elevation method (i.e. interpolated from digital elevation model)
+    And the response should include the latitude and longitude in decimal degrees with datum WGS84
+    And the response should include the UTM coordinates with datum NAD83
+    And the response should include the elevation in feet with vertical datum NAVD88
+    And the response should include the elevation method (i.e. interpolated from digital elevation model)
 
     # Alternate Identifiers
-    And I should see any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
+    And the response should include any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
 

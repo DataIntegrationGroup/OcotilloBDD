@@ -15,29 +15,29 @@ Feature: Retrieve additional well information by well name
     And null values in the response should be represented as JSON null (not placeholder strings)
 
     # Permissions / Operational OK flags
-    And I should see whether repeat measurement permission is granted for the well
-    And I should see whether sampling permission is granted for the well
-    And I should see whether datalogger installation permission is granted for the well
+    And the response should include whether repeat measurement permission is granted for the well
+    And the response should include whether sampling permission is granted for the well
+    And the response should include whether datalogger installation permission is granted for the well
 
     # Well Construction Information
-    And I should see the completion date of the well
-    And I should see the source of the completion information
-    And I should see the driller name
-    And I should see the construction method
-    And I should see the source of the construction information
+    And the response should include the completion date of the well
+    And the response should include the source of the completion information
+    And the response should include the driller name
+    And the response should include the construction method
+    And the response should include the source of the construction information
 
     # Additional Well Physical Properties
-    And I should see the casing diameter in feet
-    And I should see the casing depth in feet below ground surface
-    And I should see the casing description (previously casing notes field)
-    And I should see the well pump type (previously well_type field)
-    And I should see the well pump depth in feet
-    And I should see whether the well is open and suitable for a datalogger
+    And the response should include the casing diameter in feet
+    And the response should include the casing depth in feet below ground surface
+    And the response should include the casing description (previously casing notes field)
+    And the response should include the well pump type (previously well_type field)
+    And the response should include the well pump depth in feet
+    And the response should include whether the well is open and suitable for a datalogger
 
     # Aquifer / Geology Information
-    And I should see the formation as the formation zone of well completion
-    And I should see the aquifer class code to classify the aquifer into aquifer system.
-    And I should see the aquifer type as the type of aquifers penetrated by the well
+    And the response should include the formation as the formation zone of well completion
+    And the response should include the aquifer class code to classify the aquifer into aquifer system.
+    And the response should include the aquifer type as the type of aquifers penetrated by the well
 
     # Well Screens
-    And I should see any screen information/intervals associated with the well
+    And the response should include any screen information/intervals associated with the well
