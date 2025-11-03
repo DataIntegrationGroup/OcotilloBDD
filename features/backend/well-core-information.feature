@@ -20,10 +20,8 @@ Feature: Retrieve core well information by well name
     And I should see whether the well is currently being monitored with status text if applicable
 
     # Data Lifecycle and Public Visibility
-    # NEEDS USER RESEARCH - keep both under release_status for now?
-    And I should see the data lifecycle status of the well record
-    # Previously PublicRelease
-    And I should see the public visibility/availability status of the well record
+    # NEEDS USER RESEARCH - keep both under release_status for now? (previously PublicRelease)
+    And I should see the release status of the well record
 
     # Well Physical Properties
     And I should see the hole depth in feet
