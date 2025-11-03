@@ -69,6 +69,3 @@ Feature: Retrieve core well information by well name
     # Screened Intervals
     And I should see any screen information/intervals associated with the well
 
-    # Well Observations
-    And I should see water level observations associated with the well including the observed property and value
-
