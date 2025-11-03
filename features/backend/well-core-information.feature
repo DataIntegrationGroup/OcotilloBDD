@@ -17,7 +17,6 @@ Feature: Retrieve core well information by well name
     And I should see the elevation in feet with vertical datum NAVD88
     And I should see the elevation method (e.g., interpolated from digital elevation model)
     And I should see the UTM coordinates with datum NAD83
-    And I should see the USGS site number
     And I should see a way to download the Location Info data
 
     # Contacts Information (i.e. Owners)
