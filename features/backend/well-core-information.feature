@@ -1,72 +1,41 @@
-@backend @production
+@backend @BDMS-221 @production
 Feature: Retrieve core well information by well name
   As a hydrogeologist or data specialist
-  I want to retrieve core well information for a given well in the Ocotillo system
-  So that I can view the well details and associated information
+  I want to view clearly labeled core physical attributes and identifiers for the well in a well information page section
+  so that I can assess key well characteristics at a glance
 
   Background:
     Given Ocotillo is running
     And I am an authenticated user
 
   Scenario: Retrieve core well information for an existing well
-    When I retrieve the core well information for a given well
-    Then I should see the well name (point ID)
+    When I retrieve the well record for a given well
+    Then I should see the well name (point ID) (i.e. NM-1234)
+    And I should see the site name(s) for the well (i.e. John Smith House Well)
 
-    # Current Location Information
-    And I should see the latitude and longitude in decimal degrees with datum WGS84
-    And I should see the elevation in feet with vertical datum NAVD88
-    And I should see the elevation method (e.g., interpolated from digital elevation model)
-    And I should see the UTM coordinates with datum NAD83
-
-    # Data Lifecycle and Publication Status
-    And I should see the publication / data lifecycle status of the well record
-    And I should see the public visibility status of the well record
-
-    # Alternate Identifiers
-    And I should see any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
-
-    # Well Notes (general & status/location/measurement)
-    And I should see any notes associated with the well, whether they are location notes, construction notes, casing notes, or general well notes
-
-    # Well Construction Information
-    And I should see the completion date of the well
-    And I should see the source of the completion information
-    And I should see the driller name
-    And I should see the construction method
-    And I should see the source of the construction information
-
-    # Well Depth and Dimensions
-    And I should see the well depth in feet
-    And I should see the source of the well depth information
-    And I should see the hole depth in feet
-    And I should see the casing diameter in feet
-    And I should see the casing depth in feet below ground surface
-    And I should see the well pump type
-    And I should see the well pump depth
-
-    # Measuring Point Information
-    And I should see the description of the measuring point
-    And I should see the measuring point height
-
-    # Aquifer / Geology Information
-    And I should see the formation as the formation zone of well completion
-    And I should see the aquifer class code to classify the aquifer into aquifer system.
-    And I should see the aquifer type as the type of aquifers penetrated by the well
-
-    # Well Purpose and Status
-    And I should see the purpose of the well
+    # Well Purpose and Status and Monitoring Status
+    And I should see the purpose of the well (current use)
     And I should see the well status of the well as the status of the hole in the ground
-
-    # Monitoring Information
     And I should see the monitoring frequency
     And I should see whether the well is currently being monitored with status text if applicable
 
-    # Permissions / Operational OK flags
-    And I should see whether installation is allowed at this well
-    And I should see whether monitoring permission has been granted
-    And I should see whether sampling is allowed at this well
-    And I should see whether the well is open and suitable for a logger
+    # Data Lifecycle and Public Visibility
+    # NEEDS USER RESEARCH - keep both under release_status for now?
+    And I should see the data lifecycle status of the well record
+    # Previously PublicRelease
+    And I should see the public visibility/availability status of the well record
 
-    # Screened Intervals
-    And I should see any screen information/intervals associated with the well
+    # Well Physical Properties
+    And I should see the hole depth in feet
+    And I should see the well depth in feet
+    And I should see the source of the well depth information
+
+    # Location Information
+    And I should see the latitude and longitude in decimal degrees with datum WGS84
+    And I should see the UTM coordinates with datum NAD83
+    And I should see the elevation in feet with vertical datum NAVD88
+    And I should see the elevation method (e.g., interpolated from digital elevation model)
+
+    # Alternate Identifiers
+    And I should see any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
 
