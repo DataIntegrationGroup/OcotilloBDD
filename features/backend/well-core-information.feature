@@ -12,12 +12,11 @@ Feature: Retrieve core well information by well name
     When I retrieve the core well information for a given well
     Then I should see the well name (point ID)
 
-    # CurrentLocation Information
+    # Current Location Information
     And I should see the latitude and longitude in decimal degrees with datum WGS84
     And I should see the elevation in feet with vertical datum NAVD88
     And I should see the elevation method (e.g., interpolated from digital elevation model)
     And I should see the UTM coordinates with datum NAD83
-    And I should see a way to download the Location Info data
 
     # Contacts Information (i.e. Owners)
     And I should see the current owner and primary contact information including the name, role, organization, phone number, and email address
