@@ -48,9 +48,9 @@ Feature: Retrieve core well information by well name
     And I should see the measuring point height
 
     # Aquifer / Geology Information
-    And I should see the formation
-    And I should see the formation / lithology description
-    And I should see the source of the aquifer and geology information
+    And I should see the formation as the formation zone of well completion
+    And I should see the aquifer class code to classify the aquifer into aquifer system.
+    And I should see the aquifer type as the type of aquifers penetrated by the well
 
     # Well Purpose and Status
     And I should see the purpose of the well
