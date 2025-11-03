@@ -16,10 +16,6 @@ Feature: Retrieve additional well information by well name
     And I should see whether sampling permission is granted for the well
     And I should see whether datalogger installation permission is granted for the well
 
-    # Measuring Point Information
-    And I should see the description of the measuring point
-    And I should see the measuring point height
-
     # Well Construction Information
     And I should see the completion date of the well
     And I should see the source of the completion information
@@ -30,7 +26,8 @@ Feature: Retrieve additional well information by well name
     # Additional Well Physical Properties
     And I should see the casing diameter in feet
     And I should see the casing depth in feet below ground surface
-    And I should see the well pump type
+    And I should see the casing description (previously casing notes field)
+    And I should see the well pump type (previously well_type field)
     And I should see the well pump depth in feet
     And I should see whether the well is open and suitable for a datalogger
 
