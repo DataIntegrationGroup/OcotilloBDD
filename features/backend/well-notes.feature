@@ -13,10 +13,10 @@ Feature: Retrieve well notes by well name
     When the user retrieves the well 1
     Then the system should return a 200 status code
     And the system should return a response in JSON format
-    And the response should include location notes
-    And the response should include construction notes
-    And the response should include casing notes
-    And the response should include general well notes
+    And the response should include location notes (i.e. driving directions and geographic well location notes)
+    And the response should include construction notes (i.e. pump notes and other construction notes)
+    And the response should include general well notes (catch all notes field)
+    And the response should include water notes (i.e. water bearing zone information and other info from ose reports)
     And the notes should be a non-empty string
 
   @negative @sad_path
