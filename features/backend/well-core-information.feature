@@ -18,8 +18,9 @@ Feature: Retrieve core well information by well name
     And I should see the elevation method (e.g., interpolated from digital elevation model)
     And I should see the UTM coordinates with datum NAD83
 
-    # Contacts Information (i.e. Owners)
-    And I should see the current owner and primary contact information including the name, role, organization, phone number, and email address
+    # Data Lifecycle and Publication Status
+    And I should see the publication / data lifecycle status of the well record
+    And I should see the public visibility status of the well record
 
     # Alternate Identifiers
     And I should see any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
