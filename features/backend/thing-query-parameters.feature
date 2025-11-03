@@ -13,3 +13,12 @@ Feature: Thing query paramaters
     And the system should return a response in JSON format
     And the response should include at least one thing
     And the response should only include things of type "water well"
+
+  @positive @happy_path
+  Scenario:
+    When the user requests things with type "spring"
+    Then the system should return a 200 status code
+    And the system should return a response in JSON format
+    And the response should include at least one thing
+    And the response should only include things of type "spring"
+
