@@ -13,6 +13,7 @@ Feature: Retrieve well notes by well name
     When the user retrieves the well by ID via path parameter
     Then the system should return a 200 status code
     And the system should return a response in JSON format
+    And null values in the response should be represented as JSON null (not placeholder strings)
     And the response should include location notes (i.e. driving directions and geographic well location notes)
     And the response should include construction notes (i.e. pump notes and other construction notes)
     And the response should include general well notes (catch all notes field)

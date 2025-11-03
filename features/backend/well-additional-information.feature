@@ -10,6 +10,9 @@ Feature: Retrieve additional well information by well name
 
   Scenario: Retrieve additional well information for an existing well
     When the user retrieves the well by ID via path parameter
+    Then the system should return a 200 status code
+    And the system should return a response in JSON format
+    And null values in the response should be represented as JSON null (not placeholder strings)
 
     # Permissions / Operational OK flags
     And I should see whether repeat measurement permission is granted for the well

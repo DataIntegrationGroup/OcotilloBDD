@@ -10,7 +10,12 @@ Feature: Retrieve core well information by well name
 
   Scenario: Retrieve core well information for an existing well
     When the user retrieves the well by ID via path parameter
-    Then I should see the well name (point ID) (i.e. NM-1234)
+    Then the system should return a 200 status code
+    And the system should return a response in JSON format
+    And null values in the response should be represented as JSON null (not placeholder strings)
+
+    # Well names and projects
+    And I should see the well name (point ID) (i.e. NM-1234)
     And I should see the project(s) or group(s) associated with the well
     And I should see the site name(s) for the well (i.e. John Smith House Well)
 
