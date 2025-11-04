@@ -38,6 +38,3 @@ Feature: Retrieve additional well information by well name
     And the response should include the formation as the formation zone of well completion
     And the response should include the aquifer class code to classify the aquifer into aquifer system.
     And the response should include the aquifer type as the type of aquifers penetrated by the well
-
-    # Well Screens
-    And the response should include any screen information/intervals associated with the well
