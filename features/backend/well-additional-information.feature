@@ -27,7 +27,7 @@ Feature: Retrieve additional well information by well ID
     And the response should include the source of the construction information
 
     # Additional Well Physical Properties
-    And the response should include the casing diameter in feet
+    And the response should include the casing diameter in inches
     And the response should include the casing depth in feet below ground surface
     And the response should include the casing description (previously casing notes field)
     And the response should include the well pump type (previously well_type field)
