@@ -36,7 +36,7 @@ Feature: Retrieve core well information by well ID
 
     # Measuring Point Information
     And the response should include the description of the measuring point
-    And the response should include the measuring point height
+    And the response should include the measuring point height in feet
 
     # Location Information
     And the response should include the latitude and longitude in decimal degrees with datum WGS84
