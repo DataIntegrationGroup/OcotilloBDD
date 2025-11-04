@@ -1,5 +1,5 @@
 @backend @BDMS-227 @production
-Feature: Retrieve additional well information by well name
+Feature: Retrieve additional well information by well ID
   As a hydrogeologist or data specialist
   I want to view additional well attributes with specific physical and operational characteristics
   So that I have all necessary well data to confidently complete fieldwork

@@ -1,8 +1,8 @@
 # Created by jakeross at 10/21/25
 @backend @BDMS-199 @BDMS-233 @production
-Feature: Retrieve well notes by well name
+Feature: Retrieve well notes by well ID
   As a user
-  I want to retrieve well notes for a given well name
+  I want to retrieve well notes for a given well
   So that I can understand all necessary context about the well using info not captured in structured fields
   Background:
     Given a functioning api

@@ -1,5 +1,5 @@
 @backend @BDMS-221 @production
-Feature: Retrieve core well information by well name
+Feature: Retrieve core well information by well ID
   As a hydrogeologist or data specialist
   I want to view clearly labeled core physical attributes and identifiers for the well in a well information page section
   so that I can assess key well characteristics at a glance
