@@ -13,8 +13,8 @@ Feature: Transducer Data Response
       And the system should return a response in JSON format
 
       And the response should be paginated
-      And the response should be an array of transducer data
-      And each transducer data entry should include a timestamp, value, status and visibility
+      And each page should be an array of transducer data
+      And each transducer data entry should include a timestamp, value, status
       And the timestamp should be in ISO 8601 format
       And the value should be a numeric type
       And the status should be one of "Draft", "Corrected"
