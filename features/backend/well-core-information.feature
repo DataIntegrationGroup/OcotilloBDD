@@ -39,10 +39,11 @@ Feature: Retrieve core well information by well ID
     And the response should include the measuring point height in feet
 
     # Location Information
-    And the response should include the latitude and longitude in decimal degrees with datum WGS84
-    And the response should include the UTM coordinates with datum NAD83
-    And the response should include the elevation in feet with vertical datum NAVD88
-    And the response should include the elevation method (i.e. interpolated from digital elevation model)
+    And the response should include location information in GeoJSON format
+    And the response should include a geometry object with type "Point" and coordinates array [longitude, latitude, elevation] in decimal degrees with datum WGS84
+    And the response should include the elevation in feet with vertical datum NAVD88 in the properties
+    And the response should include the elevation method (i.e. interpolated from digital elevation model) in the properties
+    And the response should include the UTM coordinates with datum NAD83 in the properties
 
     # Alternate Identifiers
     And the response should include any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
