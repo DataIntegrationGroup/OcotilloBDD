@@ -17,7 +17,6 @@ Feature: Retrieve core well information by well ID
     # Well names and projects
     And the response should include the well name (point ID) (i.e. NM-1234)
     And the response should include the project(s) or group(s) associated with the well
-    And the response should include the site name(s) for the well (i.e. John Smith House Well)
 
     # Well Purpose and Status and Monitoring Status
     And the response should include the purpose of the well (current use)
@@ -46,5 +45,5 @@ Feature: Retrieve core well information by well ID
     And the response should include the UTM coordinates with datum NAD83 in the properties
 
     # Alternate Identifiers
-    And the response should include any alternate IDs for the well like the USGS site number or the OSE well ID and OSE well tag ID
+    And the response should include any alternate IDs for the well like the NMBGMR site_name (i.e. John Smith Well), USGS site number, or the OSE well ID and OSE well tag ID
 
