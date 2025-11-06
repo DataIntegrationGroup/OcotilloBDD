@@ -20,9 +20,9 @@ Feature: Retrieve core well information by well ID
 
     # Well Purpose and Status and Monitoring Status
     And the response should include the purpose of the well (current use)
-    And the response should include the well status of the well as the status of the hole in the ground
+    And the response should include the well hole status of the well as the status of the hole in the ground (from previous Status field)
     And the response should include the monitoring frequency (new field)
-    And the response should include whether the well is currently being monitored with status text if applicable (from previous status field)
+    And the response should include whether the well is currently being monitored with status text if applicable (from previous MonitoringStatus field)
 
     # Data Lifecycle and Public Visibility
     # NEEDS USER RESEARCH - keep both under release_status for now? (previously PublicRelease)
