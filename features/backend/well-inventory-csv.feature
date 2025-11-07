@@ -87,7 +87,7 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the field "casing_diameter_ft" is included if available as a numeric value in feet
     And the field "measuring_point_height_ft" is provided as a numeric value in feet
     And the field "measuring_point_description" is included if available
-    And the field "well_use_purpose" is included if available and one of the well_use_purpose lexicon values
+    And the field "well_purpose" is included if available and one of the well_purpose lexicon values
     And the field "well_hole_status" is included if available and one of the well_hole_status lexicon values
     And the field "monitoring_frequency" is included if available and one of the monitoring_frequency lexicon values
 
