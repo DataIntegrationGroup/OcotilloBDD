@@ -23,7 +23,7 @@ Feature: Unified search API returns grouped results
     Then the system should return a 200 status code
     And the response should include a "Contacts" group
     And each contact result should include:
-      | TODO: use correct field name syntax |
+      #| TODO: use correct field name syntax |
       | id | first_name | last_name | email | phone | address | associated_things |
 
   @positive @happy_path
@@ -32,7 +32,7 @@ Feature: Unified search API returns grouped results
     Then the system should return a 200 status code
     And the response should include a "Wells" group
     And each well result should include:
-      | TODO: use correct field name syntax |
+      #| TODO: use correct field name syntax |
       | thing_type | id | name | alternate site name | contact first name | contact last name | contact id | county |
 
   @positive @happy_path
