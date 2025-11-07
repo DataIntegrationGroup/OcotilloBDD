@@ -7,16 +7,16 @@ Feature: Upload a well inventory spreadsheet (CSV)
  Background:
     Given a functioning api
     And my CSV file is encoded in UTF-8 and uses commas as separators
+    And the system has valid lexicon values for contact_role, contact_type, phone_type, email_type, address_type, elevation_method, well_pump_type, well_purpose, well_hole_status, and monitoring_frequency
 
   @positive @happy_path
   Scenario: Upload a well inventory CSV with all required and optional fields correctly filled out
-    # is provided means the field is required and must be filled out
+    # is provided means the field is required
     # is included if available means the field is optional and may be filled out
-
     # FIELD NAMES ARE CSV FIELD NAMES, NOT API/DB FIELD NAMES
 
     # Field Visit Event fields
-    And the field "project" is provided
+    Given the field "project" is provided
     And the field "well_name_point_id" is provided and unique per row
     And the field "site_name" is provided
     And the field "date_time" is provided as a valid timestamp in ISO 8601 format with timezone offset (UTC-8) such as "2025-02-15T10:30:00-08:00"
@@ -25,34 +25,34 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the field "field_staff_3" is included if available
 
     # Well Contact (Owner) fields
-    And the field "contact_1_name" is provided
-    And the field "contact_1_organization" is included if available
-    And the field "contact_1_role" is provided and one of the contact_role lexicon values
-    And the field "contact_1_type" is provided and one of the contact_type lexicon values
+    And the field "contact_name" is provided
+    And the field "contact_organization" is included if available
+    And the field "contact_role" is provided and one of the contact_role lexicon values
+    And the field "contact_type" is provided and one of the contact_type lexicon values
 
     # Phone and Email fields are optional
-    And the field "contact_1_phone_1" is included if available
-    And the field "contact_1_phone__1_type" is included if contact_1_phone_1 is provided and is one of the phone_type lexicon values
-    And the field "contact_1_phone_2" is included if available
-    And the field "contact_1_phone_2_type" is included if contact_1_phone_2 is provided and is one of the phone_type lexicon values
-    And the field "contact_1_email_1" is included if available
-    And the field "contact_1_email_1_type" is included if contact_1_email_1 is provided and is one of the email_type lexicon values
-    And the field "contact_1_email_2" is included if available
-    And the field "contact_1_email_2_type" is included if contact_1_email_2 is provided and is one of the email_type lexicon values
+    And the field "contact_phone_1" is included if available
+    And the field "contact_phone_1_type" is included if contact_phone_1 is provided and is one of the phone_type lexicon values
+    And the field "contact_phone_2" is included if available
+    And the field "contact_phone_2_type" is included if contact_phone_2 is provided and is one of the phone_type lexicon values
+    And the field "contact_email_1" is included if available
+    And the field "contact_email_1_type" is included if contact_email_1 is provided and is one of the email_type lexicon values
+    And the field "contact_email_2" is included if available
+    And the field "contact_email_2_type" is included if contact_email_2 is provided and is one of the email_type lexicon values
 
     # Address fields are optional
-    And the field "contact_1_address_1_line_1" is provided
-    And the field "contact_1_address_1_line_2" is included if available
-    And the field "contact_1_address_1_type" is provided and one of the address_type lexicon values
-    And the field "contact_1_address_1_state" is provided
-    And the field "contact_1_address_1_city" is provided
-    And the field "contact_1_address_1_postal_code" is provided
-    And the field "contact_1_address_2_line_1" is included if available
-    And the field "contact_1_address_2_line_2" is included if available
-    And the field "contact_1_address_2_type" is included if contact_1_address_2_line_1 is provided and is one of the address_type lexicon values
-    And the field "contact_1_address_2_state" is included if contact_1_address_2_line_1 is provided
-    And the field "contact_1_address_2_city" is included if contact_1_address_2_line_1 is provided
-    And the field "contact_1_address_2_postal_code" is included if contact_1_address_2_line_1 is provided
+    And the field "contact_address_1_line_1" is included if available
+    And the field "contact_address_1_line_2" is included if available
+    And the field "contact_address_1_type" is included if contact_address_1_line_1 is provided and is one of the address_type lexicon values
+    And the field "contact_address_1_state" is included if contact_address_1_line_1 is provided
+    And the field "contact_address_1_city" is included if contact_address_1_line_1 is provided
+    And the field "contact_address_1_postal_code" is included if contact_address_1_line_1 is provided
+    And the field "contact_address_2_line_1" is included if available
+    And the field "contact_address_2_line_2" is included if available
+    And the field "contact_address_2_type" is included if contact_address_2_line_1 is provided and is one of the address_type lexicon values
+    And the field "contact_address_2_state" is included if contact_address_2_line_1 is provided
+    And the field "contact_address_2_city" is included if contact_address_2_line_1 is provided
+    And the field "contact_address_2_postal_code" is included if contact_address_2_line_1 is provided
 
     # Location notes
     And the field "directions_to_site" is included if available
