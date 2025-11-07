@@ -1,4 +1,4 @@
-@backend @BDMS-169 @production
+@backend @BDMS-169
 Feature: Unified search API returns grouped results
   As a user
   I want to search for contacts, wells, and springs
