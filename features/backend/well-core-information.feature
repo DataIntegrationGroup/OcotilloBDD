@@ -38,8 +38,9 @@ Feature: Retrieve core well information by well ID
     And the response should include the measuring point height in feet
 
     # Location Information
-    And the response should include location information in GeoJSON format
-    And the response should include a geometry object with type "Point" and coordinates array [longitude, latitude, elevation] in decimal degrees with datum WGS84
+    # GeoJSON spec format RFC 7946 (Aug 2016) requires coordinates to be decimal degrees in WGS84
+    And the response should include location information in GeoJSON spec format RFC 7946
+    And the response should include a geometry object with type "Point" and coordinates array [longitude, latitude, elevation]
     And the response should include the elevation in feet with vertical datum NAVD88 in the properties
     And the response should include the elevation method (i.e. interpolated from digital elevation model) in the properties
     And the response should include the UTM coordinates with datum NAD83 in the properties
