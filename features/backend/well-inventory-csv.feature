@@ -13,6 +13,8 @@ Feature: Upload a well inventory spreadsheet (CSV)
     # is provided means the field is required and must be filled out
     # is included if available means the field is optional and may be filled out
 
+    # FIELD NAMES ARE CSV FIELD NAMES, NOT API/DB FIELD NAMES
+
     # Field Visit Event fields
     And the field "project" is provided
     And the field "well_name_point_id" is provided and unique per row
@@ -111,7 +113,6 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with missing required fields
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
 
   @negative @validation
   Scenario: Upload fails due to duplicate well names in one or more rows
@@ -122,7 +123,6 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with duplicate well names
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
 
   @negative @validation
   Scenario: Upload fails due to invalid lexicon value in one or more rows
@@ -133,7 +133,6 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with invalid lexicon values
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
 
   @negative @validation
   Scenario: Upload fails due to invalid date format in one or more rows
@@ -144,7 +143,6 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with invalid date formats
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
 
   @negative @validation
   Scenario: Upload fails due to invalid numeric value in one or more rows
@@ -155,7 +153,6 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with invalid numeric values
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
 
   @negative @validation
   Scenario: Upload fails due to missing conditional field in one or more rows
@@ -166,4 +163,30 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the response should include validation errors for all rows with missing conditional fields
     And the response should indicate which row and field contains each error
     And no wells should be imported
-    And all rows should be validated before the upload is rejected
+
+@negative @file_format
+Scenario: Upload fails due to unsupported file type
+    Given I upload a file that is not a CSV file
+    When I upload the file to the bulk upload endpoint
+    Then the system should return a 400 Bad Request status code
+    And the system should return a response in JSON format
+    And the response should include an error message indicating the file type is not supported
+    And no wells should be imported
+
+@negative @file_format
+Scenario: Upload fails due to empty file
+    Given my CSV file is empty
+    When I upload the file to the bulk upload endpoint
+    Then the system should return a 400 Bad Request status code
+    And the system should return a response in JSON format
+    And the response should include an error message indicating the file is empty
+    And no wells should be imported
+
+@negative @file_format
+  Scenario: Upload fails due to CSV with only headers and no data rows
+    Given my CSV file contains only column headers with no data rows
+    When I upload the CSV file to the bulk upload endpoint
+    Then the system should return a 400 Bad Request status code
+    And the system should return a response in JSON format
+    And the response should include an error indicating no data rows found
+    And no wells should be imported
