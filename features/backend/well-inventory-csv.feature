@@ -19,7 +19,7 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the field "project" is provided
     And the field "well_name_point_id" is provided and unique per row
     And the field "site_name" is provided
-    And the field "date_time" is provided as a valid timestamp in ISO 8601 format with timezone offset (UTC-8) such as "2025-02-15T10:30:00Z-08:00"
+    And the field "date_time" is provided as a valid timestamp in ISO 8601 format with timezone offset (UTC-8) such as "2025-02-15T10:30:00-08:00"
     And the field "field_staff" is provided and contains the first and last name of the primary person who measured or logged the data
     And the field "field_staff_2" is included if available
     And the field "field_staff_3" is included if available
@@ -75,10 +75,10 @@ Feature: Upload a well inventory spreadsheet (CSV)
 
     # Well attributes
     And the field "ose_well_record_id" is included if available
-    And the field "date_drilled" is included if available as a valid date in ISO 8601 format with timezone offset (UTC-8) such as "2025-02-15T10:30:00Z-08:00"
+    And the field "date_drilled" is included if available as a valid date in ISO 8601 format with timezone offset (UTC-8) such as "2025-02-15T10:30:00-08:00"
     And the field "completion_source" is included if available
     And the field "total_well_depth_ft" is included if available as a numeric value in feet
-    And the field "static_water_depth_ft" is included if available as a numeric value
+    And the field "historic_depth_to_water_ft" is included if available as a numeric value in feet
     And the field "depth_source" is included if available
     And the field "well_pump_type" is included if available and one of the well_pump_type lexicon values
     And the field "well_pump_depth_ft" is included if available as a numeric value in feet
