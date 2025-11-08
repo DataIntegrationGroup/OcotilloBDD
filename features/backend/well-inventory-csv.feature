@@ -68,8 +68,9 @@ Feature: Upload a well inventory spreadsheet (CSV)
     And the field "special_requests" is included if available
 
     # Location fields
-    And the field "utm_easting" is provided as a numeric value in NAD83 UTM Zone 13
-    And the field "utm_northing" is provided as a numeric value in NAD83 UTM Zone 13
+    And the field "utm_easting" is provided as a numeric value in NAD83
+    And the field "utm_northing" is provided as a numeric value in NAD83
+    And the field "utm_zone" is provided as a numeric value
     And the field "elevation_ft" is provided as a numeric value in NAVD88
     And the field "elevation_method" is provided and one of the elevation_method lexicon values
 
