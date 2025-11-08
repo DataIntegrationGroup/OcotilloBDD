@@ -17,7 +17,7 @@ Feature: Transducer Data Response
       And each transducer data entry should include a timestamp, value, status
       And the timestamp should be in ISO 8601 format
       And the value should be a numeric type
-      And the status should be one of "Draft", "Corrected"
+      And the status should be one of "approved", "not reviewed"
 
 
 
