@@ -24,6 +24,7 @@ Feature: Transducer Data Response
     @negative @sad_path
     Scenario: Retrieve transducer data for a non-existing well
       When the user requests transducer data for a non-existing well
-      Then the system should return a 404 status code
+      Then the system should return a 200 status code
       And the system should return a response in JSON format
-      And the response should include an error message indicating the well was not found
+      And the response should be paginated
+      And the items should be an empty list
