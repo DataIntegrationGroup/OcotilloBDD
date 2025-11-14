@@ -90,7 +90,7 @@ Feature: Bulk upload well inventory from CSV
 #    And all optional numeric fields contain valid numeric values when provided
 #    And all optional date fields contain valid ISO 8601 timestamps when provided
 
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 201 Created status code
     And the system should return a response in JSON format
 #    And null values in the response are represented as JSON null
@@ -108,7 +108,7 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @BDMS-??
   Scenario: Upload fails when required fields are missing
     Given my CSV file contains rows missing a required field "well_name_point_id"
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the system should return a response in JSON format
     And the response includes validation errors for all rows missing required fields
@@ -118,7 +118,7 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @BDMS-??
   Scenario: Upload fails when duplicate well_name_point_id values are present
     Given my CSV file contains one or more duplicate "well_name_point_id" values
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the response includes validation errors indicating duplicated values
     And each error identifies the row and field
@@ -127,7 +127,7 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @BDMS-??
   Scenario: Upload fails due to invalid lexicon values
     Given my CSV file contains invalid lexicon values for "contact_role" or other lexicon fields
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the response includes validation errors identifying the invalid field and row
     And no wells are imported
@@ -135,7 +135,7 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @BDMS-??
   Scenario: Upload fails due to invalid date formats
     Given my CSV file contains invalid ISO 8601 date values in the "date_time" field
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the response includes validation errors identifying the invalid field and row
     And no wells are imported
@@ -143,7 +143,7 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @BDMS-??
   Scenario: Upload fails due to invalid numeric fields
     Given my CSV file contains values that cannot be parsed as numeric in numeric-required fields such as "utm_easting"
-    When I upload the CSV file to the bulk upload endpoint
+    When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the response includes validation errors identifying the invalid field and row
     And no wells are imported
@@ -151,7 +151,7 @@ Feature: Bulk upload well inventory from CSV
 #  @negative @validation @BDMS-??
 #  Scenario: Upload fails when conditional address fields are incomplete
 #    Given my CSV file includes "contact_address_2_line_1" but omits required conditional fields such as "contact_address_2_city"
-#    When I upload the CSV file to the bulk upload endpoint
+#    When I upload the file to the bulk upload endpoint
 #    Then the system returns a 422 Unprocessable Entity status code
 #    And the response lists conditional field validation errors per row
 #    And no wells are imported
@@ -163,7 +163,7 @@ Feature: Bulk upload well inventory from CSV
 #
   @negative @file_format @BDMS-??
   Scenario: Upload fails when file type is unsupported
-    Given I attempt to upload a non-CSV file
+    Given I have a non-CSV file
     When I upload the file to the bulk upload endpoint
     Then the system returns a 400 status code
     And the response includes an error message indicating unsupported file type
