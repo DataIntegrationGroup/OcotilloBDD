@@ -7,7 +7,7 @@ Feature: Bulk upload well inventory from CSV
   So that well records can be created efficiently and accurately in the system
 
   Background:
-    Given my CSV file is encoded in UTF-8 and uses commas as separators
+    Given a functioning api
     And valid lexicon values exist for:
       | contact_role          |
       | contact_type          |
@@ -19,10 +19,12 @@ Feature: Bulk upload well inventory from CSV
       | well_purpose          |
       | well_hole_status      |
       | monitoring_frequency  |
-#
+
   @positive @happy_path @BDMS-??
   Scenario: Uploading a valid well inventory CSV containing required and optional fields
-    Given my CSV file contains multiple rows of well inventory data
+    Given a valid CSV file for bulk well inventory upload
+    And my CSV file is encoded in UTF-8 and uses commas as separators
+    And my CSV file contains multiple rows of well inventory data
     And the CSV includes required fields:
       | project                 |
       | well_name_point_id      |
@@ -95,8 +97,8 @@ Feature: Bulk upload well inventory from CSV
     And the system should return a response in JSON format
 #    And null values in the response are represented as JSON null
     And the response includes a summary containing:
-      | total_rows_processed       | 10 |
-      | total_rows_imported        | 10 |
+      | total_rows_processed       | 2 |
+      | total_rows_imported        | 2 |
       | validation_errors_or_warnings | 0  |
     And the response includes an array of created well objects
 
