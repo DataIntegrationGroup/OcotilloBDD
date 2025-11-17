@@ -42,37 +42,62 @@ Feature: Bulk upload well inventory from CSV
     And the CSV includes optional fields when available:
       | field_staff_2                     |
       | field_staff_3                     |
-      | contact_name                      |
-      | contact_organization              |
-      | contact_role                      |
-      | contact_type                      |
-      | contact_phone_1                   |
-      | contact_phone_1_type              |
-      | contact_phone_2                   |
-      | contact_phone_2_type              |
-      | contact_email_1                   |
-      | contact_email_1_type              |
-      | contact_email_2                   |
-      | contact_email_2_type              |
-      | contact_address_1_line_1          |
-      | contact_address_1_line_2          |
-      | contact_address_1_type            |
-      | contact_address_1_state           |
-      | contact_address_1_city            |
-      | contact_address_1_postal_code     |
-      | contact_address_2_line_1          |
-      | contact_address_2_line_2          |
-      | contact_address_2_type            |
-      | contact_address_2_state           |
-      | contact_address_2_city            |
-      | contact_address_2_postal_code     |
+      | contact_1_name                    |
+      | contact_1_organization            |
+      | contact_1_role                    |
+      | contact_1_type                    |
+      | contact_1_phone_1                 |
+      | contact_1_phone_1_type            |
+      | contact_1_phone_2                 |
+      | contact_1_phone_2_type            |
+      | contact_1_email_1                 |
+      | contact_1_email_1_type            |
+      | contact_1_email_2                 |
+      | contact_1_email_2_type            |
+      | contact_1_address_1_line_1        |
+      | contact_1_address_1_line_2        |
+      | contact_1_address_1_type          |
+      | contact_1_address_1_state         |
+      | contact_1_address_1_city          |
+      | contact_1_address_1_postal_code   |
+      | contact_1_address_2_line_1        |
+      | contact_1_address_2_line_2        |
+      | contact_1_address_2_type          |
+      | contact_1_address_2_state         |
+      | contact_1_address_2_city          |
+      | contact_1_address_2_postal_code   |
+      | contact_2_name                    |
+      | contact_2_organization            |
+      | contact_2_role                    |
+      | contact_2_type                    |
+      | contact_2_phone_1                 |
+      | contact_2_phone_1_type            |
+      | contact_2_phone_2                 |
+      | contact_2_phone_2_type            |
+      | contact_2_email_1                 |
+      | contact_2_email_1_type            |
+      | contact_2_email_2                 |
+      | contact_2_email_2_type            |
+      | contact_2_address_1_line_1        |
+      | contact_2_address_1_line_2        |
+      | contact_2_address_1_type          |
+      | contact_2_address_1_state         |
+      | contact_2_address_1_city          |
+      | contact_2_address_1_postal_code   |
+      | contact_2_address_2_line_1        |
+      | contact_2_address_2_line_2        |
+      | contact_2_address_2_type          |
+      | contact_2_address_2_state         |
+      | contact_2_address_2_city          |
+      | contact_2_address_2_postal_code   |
       | directions_to_site                |
       | specific_location_of_well         |
       | repeat_measurement_permission     |
       | sampling_permission               |
       | datalogger_installation_permission |
       | public_availability_acknowledgement |
-      | special_requests                  |
+      | result_communication_preference   |
+      | contact_special_requests_notes    |
       | ose_well_record_id                |
       | date_drilled                      |
       | completion_source                 |
@@ -88,6 +113,8 @@ Feature: Bulk upload well inventory from CSV
       | well_purpose                      |
       | well_hole_status                  |
       | monitoring_frequency              |
+      | sampling_scenario_notes           |
+      | well_measurment_notes             |
 #    And all optional lexicon fields contain valid lexicon values when provided
 #    And all optional numeric fields contain valid numeric values when provided
 #    And all optional date fields contain valid ISO 8601 timestamps when provided
