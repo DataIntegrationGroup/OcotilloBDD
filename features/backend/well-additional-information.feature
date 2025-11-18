@@ -1,4 +1,4 @@
-@backend @BDMS-227 @production
+@backend @BDMS-227
 Feature: Retrieve additional well information by well ID
   As a hydrogeologist or data specialist
   I want to view additional well attributes with specific physical and operational characteristics

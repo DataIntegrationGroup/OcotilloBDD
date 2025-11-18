@@ -1,5 +1,5 @@
 # Created by jakeross at 11/4/25
-@backend
+@backend @production
 Feature: Transducer Data Response
   This feature tests the API's ability to retrieve transducer data for wells.
     Background:

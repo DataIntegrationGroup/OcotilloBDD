@@ -1,4 +1,4 @@
-@backend @BDMS-221 @production
+@backend @BDMS-221
 Feature: Retrieve core well information by well ID
   As a hydrogeologist or data specialist
   I want to view clearly labeled core physical attributes and identifiers for the well in a well information page section
