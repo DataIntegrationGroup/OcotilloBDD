@@ -115,6 +115,7 @@ Feature: Bulk upload well inventory from CSV
       | monitoring_frequency              |
       | sampling_scenario_notes           |
       | well_measuring_notes              |
+      | sample_possible                   |
 #    And all optional lexicon fields contain valid lexicon values when provided
 #    And all optional numeric fields contain valid numeric values when provided
 #    And all optional date fields contain valid ISO 8601 timestamps when provided
