@@ -134,6 +134,24 @@ Feature: Bulk upload well inventory from CSV
   ###########################################################################
   # NEGATIVE VALIDATION SCENARIOS
   ###########################################################################
+  @negative @validation @BDMS-??
+  Scenario: Upload fails when a row has an invalid postal code format
+    Given my CSV file contains a row  that has an invalid postal code format in contact_1_address_1_postal_code
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 422 Unprocessable Entity status code
+    And the system should return a response in JSON format
+    And the response includes a validation error indicating the invalid postal code format
+    And no wells are imported
+
+  @negative @validation @BDMS-??
+  Scenario: Upload fails when a row has contact without a contact_role
+    Given my CSV file contains a row with a contact but is missing the required "contact_role" field for that contact
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 422 Unprocessable Entity status code
+    And the system should return a response in JSON format
+    And the response includes a validation error indicating the missing "contact_role" field
+    And no wells are imported
+
 
   @negative @validation @BDMS-??
   Scenario: Upload fails when required fields are missing
