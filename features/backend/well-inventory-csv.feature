@@ -144,6 +144,24 @@ Feature: Bulk upload well inventory from CSV
     And no wells are imported
 
   @negative @validation @BDMS-??
+  Scenario: Upload fails when a row has a contact with a invalid phone number format
+    Given my CSV file contains a row with a contact with a phone number that is not in the valid format
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 422 Unprocessable Entity status code
+    And the system should return a response in JSON format
+    And the response includes a validation error indicating the invalid phone number format
+    And no wells are imported
+
+  @negative @validation @BDMS-??
+  Scenario: Upload fails when a row has a contact with a invalid email format
+    Given my CSV file contains a row with a contact with an email that is not in the valid format
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 422 Unprocessable Entity status code
+    And the system should return a response in JSON format
+    And the response includes a validation error indicating the invalid email format
+    And no wells are imported
+
+  @negative @validation @BDMS-??
   Scenario: Upload fails when a row has contact without a contact_role
     Given my CSV file contains a row with a contact but is missing the required "contact_role" field for that contact
     When I upload the file to the bulk upload endpoint
@@ -152,6 +170,50 @@ Feature: Bulk upload well inventory from CSV
     And the response includes a validation error indicating the missing "contact_role" field
     And no wells are imported
 
+  @negative @validation @BDMS-??
+    Scenario: Upload fails when a row has contact without a "contact_type"
+      Given my CSV file contains a row with a contact but is missing the required "contact_type" field for that contact
+      When I upload the file to the bulk upload endpoint
+      Then the system returns a 422 Unprocessable Entity status code
+      And the system should return a response in JSON format
+      And the response includes a validation error indicating the missing "contact_type" value
+      And no wells are imported
+
+  @negative @validation @BDMS-??
+    Scenario: Upload fails when a row has contact with an email without an email_type
+      Given my CSV file contains a row with a contact with an email but is missing the required "email_type" field for that email
+      When I upload the file to the bulk upload endpoint
+      Then the system returns a 422 Unprocessable Entity status code
+      And the system should return a response in JSON format
+      And the response includes a validation error indicating the missing "email_type" value
+      And no wells are imported
+
+  @negative @validation @BDMS-??
+    Scenario: Upload fails when a row has contact with a phone without a phone_type
+      Given my CSV file contains a row with a contact with a phone but is missing the required "phone_type" field for that phone
+      When I upload the file to the bulk upload endpoint
+      Then the system returns a 422 Unprocessable Entity status code
+      And the system should return a response in JSON format
+      And the response includes a validation error indicating the missing "phone_type" value
+      And no wells are imported
+
+  @negative @validation @BDMS-??
+    Scenario: Upload fails when a row has contact with an address without an address_type
+      Given my CSV file contains a row with a contact with an address but is missing the required "address_type" field for that address
+      When I upload the file to the bulk upload endpoint
+      Then the system returns a 422 Unprocessable Entity status code
+      And the system should return a response in JSON format
+      And the response includes a validation error indicating the missing "address_type" value
+      And no wells are imported
+
+  @negative @validation @BDMS-??
+  Scenario: Upload fails when a row has utm_easting utm_northing and utm_zone values that are not within New Mexico
+    Given my CSV file contains a row with utm_easting utm_northing and utm_zone values that are not within New Mexico
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 422 Unprocessable Entity status code
+    And the system should return a response in JSON format
+    And the response includes a validation error indicating the invalid UTM coordinates
+    And no wells are imported
 
   @negative @validation @BDMS-??
   Scenario: Upload fails when required fields are missing
@@ -182,7 +244,7 @@ Feature: Bulk upload well inventory from CSV
 
   @negative @validation @BDMS-??
   Scenario: Upload fails due to invalid date formats
-    Given my CSV file contains invalid ISO 8601 date values in the "date_time" field
+    Given my CSV file contains invalid ISO 8601 date values in the "date_time" or "date_drilled" field
     When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the response includes validation errors identifying the invalid field and row
