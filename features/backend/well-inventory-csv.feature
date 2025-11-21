@@ -9,6 +9,7 @@ Feature: Bulk upload well inventory from CSV
   Background:
     Given a functioning api
     And valid lexicon values exist for:
+      | lexicon category      |
       | contact_role          |
       | contact_type          |
       | phone_type            |
@@ -26,6 +27,7 @@ Feature: Bulk upload well inventory from CSV
     And my CSV file is encoded in UTF-8 and uses commas as separators
     And my CSV file contains multiple rows of well inventory data
     And the CSV includes required fields:
+      | required field name     |
       | project                 |
       | well_name_point_id      |
       | site_name               |
@@ -40,6 +42,7 @@ Feature: Bulk upload well inventory from CSV
     And each "well_name_point_id" value is unique per row
     And "date_time" values are valid ISO 8601 timestamps with timezone offsets (e.g. "2025-02-15T10:30:00-08:00")
     And the CSV includes optional fields when available:
+      | optional field name               |
       | field_staff_2                     |
       | field_staff_3                     |
       | contact_1_name                    |
@@ -125,6 +128,7 @@ Feature: Bulk upload well inventory from CSV
     And the system should return a response in JSON format
 #    And null values in the response are represented as JSON null
     And the response includes a summary containing:
+      | summary_field              | value |
       | total_rows_processed       | 2 |
       | total_rows_imported        | 2 |
       | validation_errors_or_warnings | 0  |
