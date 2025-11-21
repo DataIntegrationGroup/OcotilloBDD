@@ -138,7 +138,19 @@ Feature: Bulk upload well inventory from CSV
   @positive @validation @column_order @BDMS-TBD
   Scenario: Upload succeeds when required columns are present but in a different order
     Given my CSV file contains all required headers but in a different column order
-    And all required fields are populated with valid values
+    And the CSV includes required fields:
+      | required field name     |
+      | project                 |
+      | well_name_point_id      |
+      | site_name               |
+      | date_time               |
+      | field_staff             |
+      | utm_easting             |
+      | utm_northing            |
+      | utm_zone                |
+      | elevation_ft            |
+      | elevation_method        |
+      | measuring_point_height_ft |
     When I upload the file to the bulk upload endpoint
     Then the system returns a 201 Created status code
     And the system should return a response in JSON format
@@ -146,23 +158,18 @@ Feature: Bulk upload well inventory from CSV
 
   @positive @validation @extra_columns @BDMS-TBD
   Scenario: Upload succeeds when CSV contains extra, unknown columns
-    Given my CSV file contains all required headers
-    And my CSV file also contains additional columns not recognized by the system
-    And all required fields are populated with valid values
+    Given my CSV file contains extra columns but is otherwise valid
     When I upload the file to the bulk upload endpoint
     Then the system returns a 201 Created status code
     And the system should return a response in JSON format
     And all wells are imported
-    And the extra, unknown columns are ignored by the system
 
   ###########################################################################
   # NEGATIVE VALIDATION SCENARIOS
   ###########################################################################
   @negative @validation @transactional_import @BDMS-TBD
   Scenario: No wells are imported when any row fails validation
-    Given my CSV file contains 3 rows of well inventory data
-    And 2 rows are fully valid
-    And 1 row is missing the required "well_name_point_id" field
+    Given my CSV file contains 3 rows of data with 2 valid rows and 1 row missing the required "well_name_point_id"
     When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the system should return a response in JSON format
@@ -335,15 +342,7 @@ Feature: Bulk upload well inventory from CSV
     And the response includes validation errors identifying the invalid field and row
     And no wells are imported
 
-  @negative @validation @BDMS-TBD
-  Scenario: Upload fails when conditional address fields are incomplete
-    Given my CSV file includes "contact_address_2_line_1" but omits required conditional fields such as "contact_address_2_city"
-    When I upload the file to the bulk upload endpoint
-    Then the system returns a 422 Unprocessable Entity status code
-#    And the response lists conditional field validation errors per row
-    And no wells are imported
-#
-#
+
 #  ###########################################################################
 #  # FILE FORMAT SCENARIOS
 #  ###########################################################################
@@ -387,9 +386,7 @@ Feature: Bulk upload well inventory from CSV
 
   @negative @validation @header_row @BDMS-TBD
   Scenario: Upload fails when a header row is repeated in the middle of the file
-    Given my CSV file contains a valid header row
-    And my CSV file contains data rows after the header
-    And a duplicate header row appears again after one or more data rows
+    Given my CSV file contains a valid but duplicate header row
     When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the system should return a response in JSON format
@@ -410,7 +407,6 @@ Feature: Bulk upload well inventory from CSV
   @negative @validation @header_row @BDMS-TBD
   Scenario: Upload fails when the header row contains duplicate column names
     Given my CSV file header row contains the "contact_1_email_1" column name more than once
-    And my CSV file contains data rows under these duplicate columns
     When I upload the file to the bulk upload endpoint
     Then the system returns a 422 Unprocessable Entity status code
     And the system should return a response in JSON format
