@@ -114,6 +114,7 @@ Feature: Bulk upload well inventory from CSV
       | casing_diameter_ft                |
       | measuring_point_description       |
       | well_purpose                      |
+      | well_purpose_2                    |
       | well_hole_status                  |
       | monitoring_frequency              |
       | sampling_scenario_notes           |
