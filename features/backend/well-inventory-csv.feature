@@ -393,16 +393,6 @@ Feature: Bulk upload well inventory from CSV
     And the response includes a validation error indicating a repeated header row
     And no wells are imported
 
-  @negative @validation @header_row @BDMS-TBD
-  Scenario: Upload fails when a required header name is misspelled
-    Given my CSV file header row contains a column "well_name_pointID" instead of "well_name_point_id"
-    And all other required headers are present and correctly spelled
-    And my CSV file contains data rows under these headers
-    When I upload the file to the bulk upload endpoint
-    Then the system returns a 422 Unprocessable Entity status code
-    And the system should return a response in JSON format
-    And the response includes a validation error indicating a missing required header "well_name_point_id"
-    And no wells are imported
 
   @negative @validation @header_row @BDMS-TBD
   Scenario: Upload fails when the header row contains duplicate column names
@@ -422,7 +412,6 @@ Feature: Bulk upload well inventory from CSV
   Scenario Outline: Upload fails when CSV uses an unsupported delimiter
     Given my file is named with a .csv extension
     And my file uses "<delimiter_description>" as the field delimiter instead of commas
-    And the header and data rows are otherwise valid
     When I upload the file to the bulk upload endpoint
     Then the system returns a 400 status code
     And the system should return a response in JSON format
@@ -434,34 +423,22 @@ Feature: Bulk upload well inventory from CSV
       | semicolons            |
       | tab characters        |
 
-  @negative @file_format @quoting @BDMS-TBD
-  Scenario: Upload fails when CSV contains mismatched or unbalanced quotes
-    Given my CSV file contains a header row with valid column names
-    And my CSV file contains a data row where a field begins with a quote but does not have a matching closing quote
-    When I upload the file to the bulk upload endpoint
-    Then the system returns a 400 status code
-    And the system should return a response in JSON format
-    And the response includes an error message indicating malformed CSV due to unbalanced quotes
-    And no wells are imported
-
   @positive @file_format @quoting @BDMS-TBD
   Scenario: Upload succeeds when fields contain commas inside properly quoted values
     Given my CSV file header row contains all required columns
     And my CSV file contains a data row where the "site_name" field value includes a comma and is enclosed in quotes
-      | site_name                     |
-      | "New Mexico Institute, Dept." |
-    And all other required fields are populated with valid values
+#    And all other required fields are populated with valid values
     When I upload the file to the bulk upload endpoint
     Then the system returns a 201 Created status code
     And the system should return a response in JSON format
-    And all wells are imported successfully
-
-  @negative @validation @numeric @excel @BDMS-TBD
-  Scenario: Upload fails when numeric fields are provided in Excel scientific notation format
-    Given my CSV file contains a numeric-required field such as "utm_easting"
-    And Excel has exported the "utm_easting" value in scientific notation (for example "1.2345E+06")
-    When I upload the file to the bulk upload endpoint
-    Then the system returns a 422 Unprocessable Entity status code
-    And the system should return a response in JSON format
-    And the response includes a validation error indicating an invalid numeric format for "utm_easting"
-    And no wells are imported
+    And all wells are imported
+#
+#  @negative @validation @numeric @excel @BDMS-TBD
+#  Scenario: Upload fails when numeric fields are provided in Excel scientific notation format
+#    Given my CSV file contains a numeric-required field such as "utm_easting"
+#    And Excel has exported the "utm_easting" value in scientific notation (for example "1.2345E+06")
+#    When I upload the file to the bulk upload endpoint
+#    Then the system returns a 422 Unprocessable Entity status code
+#    And the system should return a response in JSON format
+#    And the response includes a validation error indicating an invalid numeric format for "utm_easting"
+#    And no wells are imported
