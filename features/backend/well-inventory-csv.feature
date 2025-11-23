@@ -164,6 +164,14 @@ Feature: Bulk upload well inventory from CSV
     And the system should return a response in JSON format
     And all wells are imported
 
+  @positive @validation @autogenerate_ids @BDMS-TBD
+  Scenario: Upload succeeds and system auto-generates well_name_point_id when prefixed with "XY-
+    Given my CSV file contains all valid columns but uses "XY-" prefix for well_name_point_id values
+    When I upload the file to the bulk upload endpoint
+    Then the system returns a 201 Created status code
+    And the system should return a response in JSON format
+    And all wells are imported with system-generated unique well_name_point_id values
+
   ###########################################################################
   # NEGATIVE VALIDATION SCENARIOS
   ###########################################################################
