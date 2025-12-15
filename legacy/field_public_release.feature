@@ -1,98 +1,128 @@
-@legacy-db @field_PublicRelease
-Feature: PublicRelease controls public visibility of sites
-  PublicRelease is a legacy BIT field used to determine whether a site is ready for release
-  to the public via reports and web maps.
-  Interpretation: 0 = false (not released to public), 1 = true (released to public).
-  Default: No / false (not released to public).
+@legacy-db @field_PublicRelease @cross_functional
+Feature: PublicRelease global field behavior
+  The PublicRelease bit field exists across multiple legacy tables.
+  Data type is consistent (BIT), but constraints (nullability, defaults) vary by table.
 
   Background:
-    # Target field: PublicRelease
-
+    Given the target field is "PublicRelease"
 
   # ---------------------------------------------------------------------------
-  # Storage-layer / data integrity behavior
-  # These scenarios validate accepted inputs and default behavior for the legacy field.
+  # 1. CORE DATA TYPE CHECK (Applies to ALL tables)
   # ---------------------------------------------------------------------------
 
   @schema @storage
-  Scenario Outline: Accept valid bit values for PublicRelease
-    When I insert a site record with PublicRelease set to <input_value>
+  Scenario Outline: All tables accept valid bit values (0 and 1)
+    Given I am targeting the "<table>" table
+    When I insert a record with PublicRelease set to <input_value>
     Then the record is accepted
-    And PublicRelease is interpreted as <boolean_value>
-    And the site is <release_state>
+    And the stored value is <input_value>
 
     Examples:
-      | input_value | boolean_value | release_state         |
-      | 0           | false         | not publicly released |
-      | 1           | true          | publicly released     |
-
-  @schema @storage
-  Scenario: Apply default value when PublicRelease is not provided
-    When I insert a new site record without specifying PublicRelease
-    Then the record is accepted
-    And PublicRelease defaults to false
-
-  @schema @storage @characterization
-  Scenario: Define behavior when PublicRelease is explicitly NULL
-    When I attempt to insert a site record with PublicRelease set to NULL
-    Then the record is rejected
-
-  @schema @storage @characterization
-  Scenario Outline: Reject non-bit values for PublicRelease
-    When I attempt to insert a site record with PublicRelease set to <invalid_input>
-    Then the record is rejected
-    And an error indicates PublicRelease must be 0 or 1
-
-    Examples:
-        | invalid_input |
-        | 2             |
-        | -1            |
-        | "Yes"         |
-        | "True"        |
-
+      | table                          | input_value |
+      | Location                       | 0           |
+      | Location                       | 1           |
+      | WaterLevels                    | 0           |
+      | WaterLevels                    | 1           |
+      | WaterLevelsContinuous_Acoustic | 0           |
+      | WaterLevelsContinuous_Acoustic | 1           |
+      | ChemistrySampleInfo            | 0           |
+      | ChemistrySampleInfo            | 1           |
 
   # ---------------------------------------------------------------------------
-  # Business-level / public-facing behavior
-  # These scenarios validate what a public user can observe in reports and web maps.
+  # 2. NULLABILITY CHECK (Varies by table)
+  #   - Strict: NOT NULL (Location)
+  #   - Hybrid: NULL allowed (WaterLevels, WaterLevelsContinuous_Acoustic)
+  #   - Loose:  NULL allowed (ChemistrySampleInfo)
+  # ---------------------------------------------------------------------------
+
+  @schema @storage @edge_case
+  Scenario Outline: Verify NULL acceptance policy per table
+    Given I am targeting the "<table>" table
+    When I attempt to insert a record with PublicRelease set to NULL
+    Then the system should <outcome> the record
+
+    Examples: Strict constraints (NOT NULL)
+      | table    | outcome |
+      | Location | reject  |
+
+    Examples: Hybrid constraints (NULL allowed, default exists)
+      | table                          | outcome |
+      | WaterLevels                    | accept  |
+      | WaterLevelsContinuous_Acoustic | accept  |
+
+    Examples: Loose constraints (NULL allowed, no default)
+      | table               | outcome |
+      | ChemistrySampleInfo | accept  |
+
+  # ---------------------------------------------------------------------------
+  # 3. DEFAULT VALUE CHECK (Varies by table)
+  #   - Default 0: Location, WaterLevels, WaterLevelsContinuous_Acoustic
+  #   - No default: ChemistrySampleInfo (remains NULL)
+  # ---------------------------------------------------------------------------
+
+  @schema @storage @defaults
+  Scenario Outline: Verify default value when field is omitted
+    Given I am targeting the "<table>" table
+    When I insert a record without specifying PublicRelease
+    Then the record is accepted
+    And the PublicRelease field should be set to <expected_default>
+
+    Examples: Tables with default ((0))
+      | table                          | expected_default |
+      | Location                       | 0                |
+      | WaterLevels                    | 0                |
+      | WaterLevelsContinuous_Acoustic | 0                |
+
+    Examples: Tables with no default (NULL)
+      | table               | expected_default |
+      | ChemistrySampleInfo | NULL             |
+
+  # ---------------------------------------------------------------------------
+  # 4. BUSINESS LOGIC (Public visibility by data type)
+  #   PublicRelease indicates whether the data from the table is visible to the public.
   # ---------------------------------------------------------------------------
 
   @business @public @reports @webmaps
-  Scenario Outline: PublicRelease determines whether a site is visible to the public
-    Given a site exists with PublicRelease set to <input_value>
-    When a public user views sites in public reports
-    Then the site is <report_visibility>
-    When a public user views sites in public web maps
-    Then the site is <map_visibility>
+  Scenario Outline: PublicRelease = 1 makes data visible to the public
+    Given I am targeting the "<table>" table
+    And I have a record with PublicRelease set to 1
+    When a public user views the <data_description> in public reports
+    Then the <data_description> is visible
+    When a public user views the <data_description> in public web maps
+    Then the <data_description> is visible
 
     Examples:
-      | input_value | report_visibility | map_visibility |
-      | 0           | not shown         | not shown      |
-      | 1           | shown             | shown          |
+      | table                          | data_description                    |
+      | Location                       | location information                |
+      | WaterLevels                    | water level measurement information |
+      | WaterLevelsContinuous_Acoustic | water level measurement information |
+      | ChemistrySampleInfo            | chemistry data                      |
 
   @business @public @reports @webmaps
-  Scenario: Sites are not publicly visible by default
-    Given a site exists where PublicRelease is false
-    When a public user views sites in public reports
-    Then the site is not shown
-    When a public user views sites in public web maps
-    Then the site is not shown
+  Scenario Outline: PublicRelease = 0 makes data not visible to the public
+    Given I am targeting the "<table>" table
+    And I have a record with PublicRelease set to 0
+    When a public user views the <data_description> in public reports
+    Then the <data_description> is not visible
+    When a public user views the <data_description> in public web maps
+    Then the <data_description> is not visible
 
-  @business @public @reports @webmaps
-  Scenario: Updating PublicRelease to true makes a site publicly visible
-    Given a site exists with PublicRelease set to 0
-    When the site's PublicRelease is updated to 1
-    Then PublicRelease is interpreted as true
-    When a public user views sites in public reports
-    Then the site is shown
-    When a public user views sites in public web maps
-    Then the site is shown
+    Examples:
+      | table                          | data_description                    |
+      | Location                       | location information                |
+      | WaterLevels                    | water level measurement information |
+      | WaterLevelsContinuous_Acoustic | water level measurement information |
+      | ChemistrySampleInfo            | chemistry data                      |
 
-  @business @public @reports @webmaps
-  Scenario: Updating PublicRelease to false removes a site from public visibility
-    Given a site exists with PublicRelease set to 1
-    When the site's PublicRelease is updated to 0
-    Then PublicRelease is interpreted as false
-    When a public user views sites in public reports
-    Then the site is not shown
-    When a public user views sites in public web maps
-    Then the site is not shown
+  @business @public @reports @webmaps @edge_case
+  Scenario Outline: PublicRelease = NULL makes data not visible to the public
+    Given I am targeting the "<table>" table
+    And I have a record with PublicRelease set to NULL
+    When a public user views the <data_description> in public reports
+    Then the <data_description> is not visible
+    When a public user views the <data_description> in public web maps
+    Then the <data_description> is not visible
+
+    Examples:
+      | table               | data_description |
+      | ChemistrySampleInfo | chemistry data   |
