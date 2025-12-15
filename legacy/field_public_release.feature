@@ -71,7 +71,7 @@ Feature: PublicRelease controls public visibility of sites
 
   @business @public @reports @webmaps
   Scenario: Sites are not publicly visible by default
-    Given a site exists with PublicRelease not set
+    Given a site exists where PubliRelease is false
     When a public user views sites in public reports
     Then the site is not shown
     When a public user views sites in public web maps
